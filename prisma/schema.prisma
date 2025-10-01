@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id              String   @id @default(uuid())
+  username        String   @unique
+  email           String?  @unique
+  password        String
+  institutionRole String
+  institution     String
+  role            UserRole @default(USER)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  Appointment Appointment[]
+}
+
+model Appointment {
+  id             String   @id @default(uuid())
+  userId         String
+  start          DateTime
+  end            DateTime
+  purpose        String
+  responsible    String
+  expectedGuests Int
+  extraRequest   String?
+  wifi           Boolean  @default(false)
+  projector      Boolean  @default(false)
+  soundSystem    Boolean  @default(false)
+
+  status          AppointmentStatus @default(PENDING)
+  rejectionReason String? // Preenchido se for rejeitado
+  reviewedAt      DateTime? // Quando foi aprovado/rejeitado
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
