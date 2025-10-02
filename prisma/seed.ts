@@ -4,6 +4,12 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 async function main() {
+  // 🧹 Limpa o banco: delete na ordem inversa das relações
+  await prisma.appointment.deleteMany();
+  await prisma.user.deleteMany();
+  // Se tiver outras tabelas relacionadas, adicione aqui (por ex: notifications, logs, etc)
+
+  // 🔐 Gera senha hash
   const passwordHash = await bcrypt.hash("123456", 10);
 
   // 👤 Admin
