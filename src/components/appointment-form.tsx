@@ -10,11 +10,10 @@ import {
   Building2,
   Briefcase,
   MessageSquare,
-  Projector,
   Mic,
-  PenTool,
-  Video,
   Loader2,
+  Wifi,
+  Presentation,
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -37,10 +36,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useToast } from "@/hooks/use-toast";
 import { appointmentSchema, type AppointmentFormData } from "@/lib/validations";
-import { getMockedUnavailableDates, saveAppointment } from "@/lib/mock-data";
+import { getMockedUnavailableDates } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
+import { createAppointment } from "@/app/actions/create-appointment";
+import { toast } from "sonner";
 
 interface AppointmentFormProps {
   selectedDate?: Date;
@@ -53,12 +53,11 @@ export function AppointmentForm({
 }: AppointmentFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const unavailableDates = getMockedUnavailableDates();
-  const { toast } = useToast();
 
-  const form = useForm<AppointmentFormValues>({
+  const form = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
     defaultValues: {
-      date: selectedDate ? format(selectedDate, "yyyy-MM-dd") : "",
+      date: selectedDate ?? undefined,
       startTime: "",
       endTime: "",
       purpose: "",
@@ -69,9 +68,8 @@ export function AppointmentForm({
       extraRequests: "",
       equipment: {
         projector: false,
-        microphone: false,
-        whiteboard: false,
-        videoConference: false,
+        soundSystem: false,
+        wifi: false,
       },
     },
   });
@@ -80,26 +78,30 @@ export function AppointmentForm({
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      saveAppointment({
-        id: crypto.randomUUID(),
-        ...data,
-        createdAt: new Date().toISOString(),
+      await createAppointment({
+        date: data.date,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        purpose: data.purpose,
+        responsible: data.responsible,
+        position: data.position,
+        institution: data.institution,
+        expectedGuests: data.expectedGuests,
+        extraRequests: data.extraRequests,
+        equipment: {
+          projector: data.equipment.projector,
+          soundSystem: data.equipment.soundSystem,
+          wifi: data.equipment.wifi,
+        },
       });
 
-      toast({
-        title: "Sucesso!",
-        description: "Agendamento realizado com sucesso!",
-      });
+      toast("Agendamento criado com sucesso!");
 
       form.reset();
       onSuccess?.();
-    } catch (error) {
-      toast({
-        title: "Erro",
-        description: "Ocorreu um erro ao processar seu agendamento.",
-        variant: "destructive",
+    } catch {
+      toast("Erro ao criar agendamento. Tente novamente.", {
+        description: "Se o problema persistir, contate o suporte.",
       });
     } finally {
       setIsSubmitting(false);
@@ -142,9 +144,7 @@ export function AppointmentForm({
                   <Calendar
                     mode="single"
                     selected={field.value ? new Date(field.value) : undefined}
-                    onSelect={(date) =>
-                      field.onChange(date ? format(date, "yyyy-MM-dd") : "")
-                    }
+                    onSelect={(date) => field.onChange(date ?? undefined)}
                     disabled={(date) => {
                       const today = new Date();
                       today.setHours(0, 0, 0, 0);
@@ -155,7 +155,7 @@ export function AppointmentForm({
                         )
                       );
                     }}
-                    initialFocus
+                    autoFocus
                     locale={ptBR}
                   />
                 </PopoverContent>
@@ -304,8 +304,8 @@ export function AppointmentForm({
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
-                      <Projector className="h-4 w-4" />
-                      Projetor
+                      <Presentation className="h-4 w-4" />
+                      Sistema de Vídeo
                     </FormLabel>
                   </div>
                 </FormItem>
@@ -314,7 +314,27 @@ export function AppointmentForm({
 
             <FormField
               control={form.control}
-              name="equipment.microphone"
+              name="equipment.wifi"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                      <Wifi className="h-4 w-4" />
+                      Wifi
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="equipment.soundSystem"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
@@ -332,94 +352,51 @@ export function AppointmentForm({
                 </FormItem>
               )}
             />
-
-            <FormField
-              control={form.control}
-              name="equipment.whiteboard"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
-                      <PenTool className="h-4 w-4" />
-                      Quadro Branco
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="equipment.videoConference"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
-                      <Video className="h-4 w-4" />
-                      Videoconferência
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
           </div>
+          {/* Extra Requests */}
+          <FormField
+            control={form.control}
+            name="extraRequests"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4" />
+                  Solicitações Extras (Opcional)
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Descreva qualquer solicitação adicional..."
+                    className="resize-none"
+                    rows={4}
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Inclua qualquer informação adicional relevante para o
+                  agendamento
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            className="w-full"
+            size="lg"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Processando...
+              </>
+            ) : (
+              "Confirmar Agendamento"
+            )}
+          </Button>
         </div>
-
-        {/* Extra Requests */}
-        <FormField
-          control={form.control}
-          name="extraRequests"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="flex items-center gap-2">
-                <MessageSquare className="h-4 w-4" />
-                Solicitações Extras (Opcional)
-              </FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Descreva qualquer solicitação adicional..."
-                  className="resize-none"
-                  rows={4}
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                Inclua qualquer informação adicional relevante para o
-                agendamento
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Submit Button */}
-        <Button
-          type="submit"
-          className="w-full"
-          size="lg"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processando...
-            </>
-          ) : (
-            "Confirmar Agendamento"
-          )}
-        </Button>
       </form>
     </Form>
   );
