@@ -36,21 +36,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { appointmentSchema, type AppointmentFormData } from "@/lib/validations";
-import { getMockedUnavailableDates } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
 import { createAppointment } from "@/app/actions/create-appointment";
 import { toast } from "sonner";
-
-interface AppointmentFormProps {
-  selectedDate?: Date;
-  onSuccess?: () => void;
-}
+import { useState } from "react";
 
 export function AppointmentForm({
-  selectedDate,
-  onSuccess,
-}: AppointmentFormProps) {
-  const unavailableDates = getMockedUnavailableDates();
+  unavailableDates,
+}: {
+  unavailableDates: Date[];
+}) {
+  const [selectedDate, setSelectedDate] = useState<Date>();
 
   const form = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
@@ -105,7 +101,7 @@ export function AppointmentForm({
       toast("Agendamento criado com sucesso!");
 
       form.reset();
-      onSuccess?.();
+      setSelectedDate(undefined);
     } catch {
       toast.error("Erro ao criar agendamento. Tente novamente.", {
         description: "Se o problema persistir, contate o suporte.",
