@@ -72,22 +72,33 @@ export function AppointmentForm({
     },
   });
 
-  const onSubmit = async (data: AppointmentFormData) => {
+  const onSubmit = async ({
+    date,
+    startTime,
+    endTime,
+    purpose,
+    responsible,
+    position,
+    institution,
+    expectedGuests,
+    extraRequests,
+    equipment: { projector, soundSystem, wifi },
+  }: AppointmentFormData) => {
     try {
       await createAppointment({
-        date: data.date,
-        startTime: data.startTime,
-        endTime: data.endTime,
-        purpose: data.purpose,
-        responsible: data.responsible,
-        position: data.position,
-        institution: data.institution,
-        expectedGuests: data.expectedGuests,
-        extraRequests: data.extraRequests,
+        date: date,
+        startTime: startTime,
+        endTime: endTime,
+        purpose: purpose,
+        responsible: responsible,
+        position: position,
+        institution: institution,
+        expectedGuests: expectedGuests,
+        extraRequests: extraRequests,
         equipment: {
-          projector: data.equipment.projector,
-          soundSystem: data.equipment.soundSystem,
-          wifi: data.equipment.wifi,
+          projector,
+          soundSystem,
+          wifi,
         },
       });
 
