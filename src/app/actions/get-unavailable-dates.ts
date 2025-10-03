@@ -9,7 +9,8 @@ const fetchPublicHolidays = async ({
 }): Promise<Date[]> => {
   try {
     const response = await fetch(
-      `https://brasilapi.com.br/api/feriados/v1/${year}`
+      `https://brasilapi.com.br/api/feriados/v1/${year}`,
+      { cache: "force-cache", next: { revalidate: 86400 } }
     );
     if (!response.ok) throw new Error("Error fetching public holidays");
     const holidays = await response.json();
