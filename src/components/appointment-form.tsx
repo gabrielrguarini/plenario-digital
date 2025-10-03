@@ -152,7 +152,9 @@ export function AppointmentForm({
                       return (
                         date < today ||
                         unavailableDates.some(
-                          (d) => d.toDateString() === date.toDateString()
+                          (d) =>
+                            d.toDateString() === date.toDateString() ||
+                            date > new Date(today.getFullYear(), 11, 31)
                         )
                       );
                     }}
