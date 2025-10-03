@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -51,7 +50,6 @@ export function AppointmentForm({
   selectedDate,
   onSuccess,
 }: AppointmentFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const unavailableDates = getMockedUnavailableDates();
 
   const form = useForm<AppointmentFormData>({
@@ -75,8 +73,6 @@ export function AppointmentForm({
   });
 
   const onSubmit = async (data: AppointmentFormData) => {
-    setIsSubmitting(true);
-
     try {
       await createAppointment({
         date: data.date,
@@ -100,11 +96,9 @@ export function AppointmentForm({
       form.reset();
       onSuccess?.();
     } catch {
-      toast("Erro ao criar agendamento. Tente novamente.", {
+      toast.error("Erro ao criar agendamento. Tente novamente.", {
         description: "Se o problema persistir, contate o suporte.",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -385,9 +379,9 @@ export function AppointmentForm({
             type="submit"
             className="w-full"
             size="lg"
-            disabled={isSubmitting}
+            disabled={form.formState.isSubmitting}
           >
-            {isSubmitting ? (
+            {form.formState.isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Processando...
