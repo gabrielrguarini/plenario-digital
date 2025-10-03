@@ -9,8 +9,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getUnavailableDates } from "./actions/get-unavailable-dates";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 export default async function AppointmentPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/sign-in");
+  }
   const unavailableDates = await getUnavailableDates();
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
