@@ -40,7 +40,7 @@ const appointments: MockedAppointment[] = [];
 
 export function saveAppointment(appointment: MockedAppointment) {
   appointments.push(appointment);
-  console.log("[v0] Appointment saved:", appointment);
+  console.log("Appointment saved:", appointment);
 }
 
 export function getAppointments(): MockedAppointment[] {
