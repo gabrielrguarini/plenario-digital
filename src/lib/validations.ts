@@ -9,13 +9,6 @@ export const appointmentSchema = z
     startTime: z.string().min(1, "Horário de início é obrigatório"),
     endTime: z.string().min(1, "Horário de término é obrigatório"),
     purpose: z.string().min(3, "Finalidade deve ter no mínimo 3 caracteres"),
-    responsible: z
-      .string()
-      .min(3, "Nome do responsável deve ter no mínimo 3 caracteres"),
-    position: z.string().min(2, "Cargo deve ter no mínimo 2 caracteres"),
-    institution: z
-      .string()
-      .min(2, "Instituição deve ter no mínimo 2 caracteres"),
     expectedGuests: z
       .number()
       .min(1, "Número de convidados deve ser no mínimo 1")

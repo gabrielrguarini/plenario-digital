@@ -3,17 +3,21 @@ import { prisma } from "@/lib/prisma";
 import { getLocalDate } from "@/lib/utils";
 import { AppointmentFormData } from "@/lib/validations";
 import { getUnavailableDates } from "./get-unavailable-dates";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
 
 export async function createAppointment({
   date,
   startTime,
   endTime,
   purpose,
-  responsible,
   expectedGuests,
   extraRequests,
   equipment,
 }: AppointmentFormData) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   try {
     const unavailable = await getUnavailableDates();
     if (
@@ -23,13 +27,16 @@ export async function createAppointment({
           date > new Date(new Date().getFullYear(), 11, 31)
       )
     ) {
+      if (!session?.user) {
+        throw new Error("User not authenticated");
+      }
       const appointment = await prisma.appointment.create({
         data: {
-          userId: "16b2f9fc-2ed0-43c6-8c67-16aa06c4992f", // Mocked user ID
+          userId: session.user.id,
           start: getLocalDate(date, startTime),
           end: getLocalDate(date, endTime),
           purpose,
-          responsible,
+          responsible: session.user.name,
           expectedGuests,
           extraRequest: extraRequests,
           wifi: equipment.wifi,
@@ -41,7 +48,7 @@ export async function createAppointment({
       return appointment;
     }
     throw new Error("Date is unavailable");
-  } catch {
-    throw new Error("Failed to create appointment");
+  } catch (error) {
+    throw new Error(`Failed to create appointment: ${error}`);
   }
 }

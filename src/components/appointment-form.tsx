@@ -6,8 +6,6 @@ import {
   CalendarIcon,
   Clock,
   Users,
-  Building2,
-  Briefcase,
   MessageSquare,
   Mic,
   Loader2,
@@ -40,6 +38,8 @@ import { cn } from "@/lib/utils";
 import { createAppointment } from "@/app/actions/create-appointment";
 import { toast } from "sonner";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export function AppointmentForm({
   unavailableDates,
@@ -47,6 +47,8 @@ export function AppointmentForm({
   unavailableDates: Date[];
 }) {
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const router = useRouter();
+  const { data: session, isPending } = authClient.useSession();
 
   const form = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
@@ -55,9 +57,6 @@ export function AppointmentForm({
       startTime: "",
       endTime: "",
       purpose: "",
-      responsible: "",
-      position: "",
-      institution: "",
       expectedGuests: 1,
       extraRequests: "",
       equipment: {
@@ -68,29 +67,33 @@ export function AppointmentForm({
     },
   });
 
+  if (!session) {
+    console.log("No session found, redirecting to login...");
+    return <p>É necessário estar logado</p>;
+  }
+  if (!session && !isPending) {
+    router.push("/login");
+    return null;
+  }
+
   const onSubmit = async ({
     date,
     startTime,
     endTime,
     purpose,
-    responsible,
-    position,
-    institution,
     expectedGuests,
     extraRequests,
     equipment: { projector, soundSystem, wifi },
   }: AppointmentFormData) => {
+    console.log("onSubmit called with");
     try {
       await createAppointment({
         date: date,
         startTime: startTime,
         endTime: endTime,
         purpose: purpose,
-        responsible: responsible,
-        position: position,
-        institution: institution,
-        expectedGuests: expectedGuests,
-        extraRequests: extraRequests,
+        expectedGuests,
+        extraRequests,
         equipment: {
           projector,
           soundSystem,
@@ -112,7 +115,6 @@ export function AppointmentForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* Date Selection */}
         <FormField
           control={form.control}
           name="date"
@@ -168,7 +170,6 @@ export function AppointmentForm({
           )}
         />
 
-        {/* Time Selection */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -216,57 +217,7 @@ export function AppointmentForm({
             </FormItem>
           )}
         />
-
-        {/* Responsible Person Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="responsible"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  Responsável
-                </FormLabel>
-                <Input placeholder="Nome completo" {...field} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="position"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Briefcase className="h-4 w-4" />
-                  Cargo
-                </FormLabel>
-                <Input placeholder="Ex: Gerente, Coordenador..." {...field} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        {/* Institution and Expected Guests */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="institution"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4" />
-                  Instituição
-                </FormLabel>
-                <Input placeholder="Nome da instituição" {...field} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           <FormField
             control={form.control}
             name="expectedGuests"
@@ -288,118 +239,114 @@ export function AppointmentForm({
               </FormItem>
             )}
           />
-        </div>
+          <div className="space-y-4">
+            <FormLabel>Equipamentos Necessários</FormLabel>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="equipment.projector"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                        <Presentation className="h-4 w-4" />
+                        Sistema de Vídeo
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
 
-        {/* Equipment */}
-        <div className="space-y-4">
-          <FormLabel>Equipamentos Necessários</FormLabel>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="equipment.projector"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
-                      <Presentation className="h-4 w-4" />
-                      Sistema de Vídeo
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="equipment.wifi"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
-                      <Wifi className="h-4 w-4" />
-                      Wifi
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="equipment.soundSystem"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
-                      <Mic className="h-4 w-4" />
-                      Microfone
-                    </FormLabel>
-                  </div>
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="equipment.wifi"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                        <Wifi className="h-4 w-4" />
+                        Wifi
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="equipment.soundSystem"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                        <Mic className="h-4 w-4" />
+                        Microfone
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
-          {/* Extra Requests */}
-          <FormField
-            control={form.control}
-            name="extraRequests"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4" />
-                  Solicitações Extras (Opcional)
-                </FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Descreva qualquer solicitação adicional..."
-                    className="resize-none"
-                    rows={4}
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  Inclua qualquer informação adicional relevante para o
-                  agendamento
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            className="w-full"
-            size="lg"
-            disabled={form.formState.isSubmitting}
-          >
-            {form.formState.isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Processando...
-              </>
-            ) : (
-              "Confirmar Agendamento"
-            )}
-          </Button>
         </div>
+        <FormField
+          control={form.control}
+          name="extraRequests"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="flex items-center gap-2">
+                <MessageSquare className="h-4 w-4" />
+                Solicitações Extras (Opcional)
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Descreva qualquer solicitação adicional..."
+                  className="resize-none"
+                  rows={4}
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Inclua qualquer informação adicional relevante para o
+                agendamento
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button
+          type="submit"
+          className="w-full cursor-pointer"
+          size="lg"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Processando...
+            </>
+          ) : (
+            "Confirmar Agendamento"
+          )}
+        </Button>
       </form>
     </Form>
   );
