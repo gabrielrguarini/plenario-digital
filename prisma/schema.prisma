@@ -52,11 +52,10 @@ model Appointment {
   soundSystem    Boolean  @default(false)
 
   status          AppointmentStatus @default(PENDING)
-  rejectionReason String? // Preenchido se for rejeitado
-  reviewedAt      DateTime? // Quando foi aprovado/rejeitado
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  rejectionReason String?
+  reviewedAt      DateTime
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 
   user User @relation(fields: [userId], references: [id])
 }
