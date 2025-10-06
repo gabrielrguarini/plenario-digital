@@ -1,9 +1,10 @@
 "use server";
 import { getAppointments } from "@/app/actions/get-appointments";
 import { auth } from "@/auth";
-import { AppointmentsClient } from "@/components/appointment-client";
+// import { AppointmentsClient } from "@/components/appointment-client";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { AppointmentsDataTable } from "./appointments-table";
 
 export default async function AgendamentosPage() {
   const session = await auth.api.getSession({
@@ -21,5 +22,6 @@ export default async function AgendamentosPage() {
     return <div>Nenhum agendamento encontrado.</div>;
   }
 
-  return <AppointmentsClient appointments={appointments} />;
+  // return <AppointmentsClient appointments={appointments} />;
+  return <AppointmentsDataTable appointments={appointments} />;
 }

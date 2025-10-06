@@ -23,12 +23,22 @@ import {
 } from "lucide-react";
 import { AppointmentWithUser } from "@/lib/shared.types";
 import { AppointmentStatus } from "@/generated/prisma";
+import { toast } from "sonner";
+import { updateAppointmentStatus } from "@/app/actions/update-appointment-status";
 
 interface AppointmentDetailsDialogProps {
   appointment: AppointmentWithUser | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onChange: ({
+}
+
+export function AppointmentDetailsDialog({
+  appointment,
+  open,
+  onOpenChange,
+}: AppointmentDetailsDialogProps) {
+  if (!appointment) return null;
+  const handleChange = async ({
     appointmentId,
     status,
     rejectionReason,
@@ -36,16 +46,18 @@ interface AppointmentDetailsDialogProps {
     appointmentId: string;
     status: AppointmentStatus;
     rejectionReason?: string;
-  }) => Promise<void>;
-}
-
-export function AppointmentDetailsDialog({
-  appointment,
-  open,
-  onOpenChange,
-  onChange,
-}: AppointmentDetailsDialogProps) {
-  if (!appointment) return null;
+  }) => {
+    const updatedAppointment = await updateAppointmentStatus({
+      appointmentId,
+      status,
+      rejectionReason,
+    });
+    if (!updatedAppointment) {
+      toast.error("Erro ao atualizar o agendamento");
+      return;
+    }
+    toast.success("Agendamento atualizado com sucesso");
+  };
 
   const equipmentList = [
     { key: "wifi", label: "Wi-Fi", value: appointment.wifi },
@@ -217,7 +229,7 @@ export function AppointmentDetailsDialog({
             <Button
               variant="outline"
               onClick={() => {
-                onChange({
+                handleChange({
                   appointmentId: appointment.id,
                   status: "REJECTED",
                   rejectionReason: "REPROVADO PELO ADMINISTRADOR",
@@ -231,7 +243,7 @@ export function AppointmentDetailsDialog({
             </Button>
             <Button
               onClick={() => {
-                onChange({
+                handleChange({
                   appointmentId: appointment.id,
                   status: "APPROVED",
                 });

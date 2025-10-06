@@ -17,9 +17,6 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { EyeIcon, CalendarIcon } from "lucide-react";
 import { AppointmentWithUser } from "@/lib/shared.types";
-import { toast } from "sonner";
-import { updateAppointmentStatus } from "@/app/actions/update-appointment-status";
-import { AppointmentStatus } from "@/generated/prisma";
 
 export function AppointmentsClient({
   appointments,
@@ -33,28 +30,6 @@ export function AppointmentsClient({
   const handleViewDetails = (appointment: AppointmentWithUser) => {
     setSelectedAppointment(appointment);
     setDialogOpen(true);
-  };
-
-  const handleChange = async ({
-    appointmentId,
-    status,
-    rejectionReason,
-  }: {
-    appointmentId: string;
-    status: AppointmentStatus;
-    rejectionReason?: string;
-  }) => {
-    const updatedAppointment = await updateAppointmentStatus({
-      appointmentId,
-      status,
-      rejectionReason,
-    });
-    if (!updatedAppointment) {
-      toast.error("Erro ao atualizar o agendamento");
-      return;
-    }
-    toast.success("Agendamento atualizado com sucesso");
-    setDialogOpen(false);
   };
 
   const getStatusBadge = (status: AppointmentWithUser["status"]) => {
@@ -151,7 +126,6 @@ export function AppointmentsClient({
         appointment={selectedAppointment}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
-        onChange={handleChange}
       />
     </div>
   );
