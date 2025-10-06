@@ -37,7 +37,6 @@ import { appointmentSchema, type AppointmentFormData } from "@/lib/validations";
 import { cn } from "@/lib/utils";
 import { createAppointment } from "@/app/actions/create-appointment";
 import { toast } from "sonner";
-import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
@@ -46,14 +45,13 @@ export function AppointmentForm({
 }: {
   unavailableDates: Date[];
 }) {
-  const [selectedDate, setSelectedDate] = useState<Date>();
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
 
   const form = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
     defaultValues: {
-      date: selectedDate ?? undefined,
+      date: undefined,
       startTime: "",
       endTime: "",
       purpose: "",
@@ -101,10 +99,11 @@ export function AppointmentForm({
         },
       });
 
-      toast("Agendamento criado com sucesso!");
+      toast("Agendamento criado com sucesso!", {
+        icon: "✅",
+      });
 
       form.reset();
-      setSelectedDate(undefined);
     } catch {
       toast.error("Erro ao criar agendamento. Tente novamente.", {
         description: "Se o problema persistir, contate o suporte.",
