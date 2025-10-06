@@ -15,6 +15,7 @@ export const auth = betterAuth({
     additionalFields: {
       institution: { type: "string", required: true, input: true },
       institutionRole: { type: "string", required: true, input: true },
+      role: { type: "string", required: false, input: false },
     },
   },
 });
