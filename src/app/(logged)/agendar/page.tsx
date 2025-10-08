@@ -23,9 +23,8 @@ export default async function AppointmentPage() {
   }
   const unavailableDates = await getUnavailableDates();
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8 md:py-12">
-        {/* Header */}
         <div className="text-center mb-8 md:mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
             <CalendarIcon className="h-8 w-8 text-primary" />
@@ -37,8 +36,6 @@ export default async function AppointmentPage() {
             Agende seu espaço de forma rápida e prática
           </p>
         </div>
-
-        {/* Main Content */}
         <div className="max-w-3xl mx-auto">
           <Card className="shadow-lg border-slate-200">
             <CardHeader className="space-y-1 pb-6">
@@ -52,8 +49,6 @@ export default async function AppointmentPage() {
               <AppointmentForm unavailableDates={unavailableDates} />
             </CardContent>
           </Card>
-
-          {/* Info Card */}
           <Card className="mt-6 bg-blue-50 border-blue-200">
             <CardContent className="pt-6">
               <div className="flex gap-3">

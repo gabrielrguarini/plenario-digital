@@ -1,6 +1,4 @@
 "use client";
-
-import * as React from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { AppointmentDetailsDialog } from "@/components/appointment-details-dialog";
 import {

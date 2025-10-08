@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Plenário Digital",
@@ -19,8 +20,9 @@ export default function RootLayout({
       <body
         className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}
       >
+        <Header />
+        <main className="container mx-auto px-4 py-8">{children}</main>
         <Toaster />
-        {children}
       </body>
     </html>
   );

@@ -12,10 +12,10 @@ export default async function LoggedLayout({
     headers: await headers(),
   });
   if (!session?.user) {
-    redirect("/");
+    redirect("/sign-in");
   }
   if (session?.user.emailVerified !== true) {
-    redirect("/");
+    return null;
   }
   return <>{children}</>;
 }

@@ -12,44 +12,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { AuthButton } from "@/components/auth-button";
 
 export default function PlenarioLandingPage() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <CalendarIcon className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <h1 className="font-serif text-lg font-semibold text-foreground">
-                Câmara Municipal
-              </h1>
-              <p className="text-xs text-muted-foreground">
-                Sistema de Agendamento
-              </p>
-            </div>
-          </Link>
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              href="#como-funciona"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Como Funciona
-            </Link>
-            <Link
-              href="#regras"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Requisitos
-            </Link>
-            <AuthButton />
-          </nav>
-        </div>
-      </header>
-
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
@@ -65,7 +31,7 @@ export default function PlenarioLandingPage() {
             conforme disponibilidade e normas de utilização.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/plenario/agendar">
+            <Link href="/agendar">
               <Button size="lg" className="w-full sm:w-auto gap-2">
                 Solicitar Agendamento
                 <ArrowRightIcon className="h-4 w-4" />
@@ -84,7 +50,6 @@ export default function PlenarioLandingPage() {
         </div>
       </section>
 
-      {/* Características do Plenário */}
       <section className="bg-card border-y border-border py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">

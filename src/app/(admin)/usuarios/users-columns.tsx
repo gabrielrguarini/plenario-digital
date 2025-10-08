@@ -119,6 +119,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const user = row.original;
       const verified = user.emailVerified;
+      if (user.role === "ADMIN") return null;
 
       return (
         <Button
