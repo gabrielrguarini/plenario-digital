@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { AuthButton } from "@/components/auth-button";
 
 export default function PlenarioLandingPage() {
   return (
@@ -44,11 +45,7 @@ export default function PlenarioLandingPage() {
             >
               Requisitos
             </Link>
-            <Link href="/sign-in">
-              <Button variant="outline" size="sm">
-                Entrar
-              </Button>
-            </Link>
+            <AuthButton />
           </nav>
         </div>
       </header>
