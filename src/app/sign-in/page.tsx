@@ -19,12 +19,17 @@ import {
   FormMessage,
   FormControl,
 } from "@/components/ui/form";
-import Link from "next/link";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeClosed, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import { z } from "zod";
 import { toast } from "sonner";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { useState } from "react";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Email inválido" }),
@@ -34,6 +39,7 @@ const signInSchema = z.object({
 type SignInFormData = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
+  const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
 
   const form = useForm<SignInFormData>({
@@ -95,28 +101,33 @@ export default function SignIn() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <div className="flex items-center">
-                      <FormLabel>Senha</FormLabel>
-                      <Link
-                        href="#"
-                        className="ml-auto inline-block text-sm underline"
-                      >
-                        Esqueceu a senha?
-                      </Link>
-                    </div>
+                    <FormLabel>Senha</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Sua senha"
-                        autoComplete="password"
-                        {...field}
-                        required
-                      />
+                      <InputGroup>
+                        <InputGroupInput
+                          type={isVisible ? "text" : "password"}
+                          placeholder="Senha"
+                          {...field}
+                        />
+                        <InputGroupAddon align="inline-end">
+                          <button
+                            type="button"
+                            onClick={() => setIsVisible((prev) => !prev)}
+                            className="flex size-6 items-center justify-center rounded-md"
+                          >
+                            {isVisible ? (
+                              <EyeClosed className="size-4" />
+                            ) : (
+                              <Eye className="size-4" />
+                            )}
+                          </button>
+                        </InputGroupAddon>
+                      </InputGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              ></FormField>
               <Button
                 type="submit"
                 className="w-full"
