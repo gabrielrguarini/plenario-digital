@@ -1,6 +1,6 @@
 "use server";
 
-import { AppointmentStatus } from "@/generated/prisma";
+import { Status } from "@/generated/prisma";
 import { getAppointment } from "./get-appointment";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
@@ -11,7 +11,7 @@ export async function updateAppointmentStatus({
   rejectionReason,
 }: {
   appointmentId: string;
-  status: AppointmentStatus;
+  status: Status;
   rejectionReason?: string;
 }) {
   try {

@@ -22,7 +22,7 @@ import {
   XCircleIcon,
 } from "lucide-react";
 import { AppointmentWithUser } from "@/lib/shared.types";
-import { AppointmentStatus } from "@/generated/prisma";
+import { Status } from "@/generated/prisma";
 import { toast } from "sonner";
 import { updateAppointmentStatus } from "@/app/actions/update-appointment-status";
 
@@ -44,7 +44,7 @@ export function AppointmentDetailsDialog({
     rejectionReason,
   }: {
     appointmentId: string;
-    status: AppointmentStatus;
+    status: Status;
     rejectionReason?: string;
   }) => {
     const updatedAppointment = await updateAppointmentStatus({
