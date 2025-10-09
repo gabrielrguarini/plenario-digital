@@ -10,7 +10,8 @@
     "build": "next build --turbopack",
     "seed": "npx prisma db seed",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "latest",
