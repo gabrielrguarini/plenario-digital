@@ -1,391 +1,256 @@
+"use server";
 import Link from "next/link";
 import {
+  UserCheck,
+  FileText,
+  CheckCircle,
+  ArrowRight,
   Building2,
-  CalendarIcon,
-  ClockIcon,
-  FileTextIcon,
-  CheckCircleIcon,
-  ArrowRightIcon,
-  Users,
-  Mic,
-  Video,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
 
-export default function PlenarioLandingPage() {
+export default async function LandingPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
     <div className="min-h-screen bg-background">
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-            <Building2 className="h-4 w-4" />
-            Espaço Público para Eventos Institucionais
-          </div>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
-            Agendamento do Plenário da Câmara Municipal
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 text-balance max-w-2xl mx-auto leading-relaxed">
-            Solicite o uso do espaço do plenário para eventos, reuniões,
-            audiências públicas e outras atividades de interesse público,
-            conforme disponibilidade e normas de utilização.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/agendar">
-              <Button size="lg" className="w-full sm:w-auto gap-2">
-                Solicitar Agendamento
-                <ArrowRightIcon className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="#como-funciona">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto bg-transparent"
-              >
-                Saiba Mais
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-card border-y border-border py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Características do Espaço
-              </h2>
-              <p className="text-lg text-muted-foreground text-balance">
-                Infraestrutura completa para eventos institucionais
-              </p>
+      <section className="relative py-20 md:py-32 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              <Building2 className="h-4 w-4" />
+              Câmara Municipal
             </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-border bg-background">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Users className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    Capacidade
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Espaço amplo com capacidade para até 500 pessoas, adequado
-                    para eventos de grande porte e audiências públicas.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border bg-background">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Mic className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    Sistema de Som
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Sistema de som profissional com microfones sem fio, mesa de
-                    som e caixas acústicas para garantir áudio de qualidade.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border bg-background">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Video className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    Recursos Audiovisuais
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Projetor multimídia, tela de projeção, sistema de gravação e
-                    transmissão ao vivo disponíveis mediante solicitação.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Como Funciona Section */}
-      <section id="como-funciona" className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Como Funciona o Agendamento
-              </h2>
-              <p className="text-lg text-muted-foreground text-balance">
-                Processo transparente para solicitação de uso do espaço
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-8">
-              <Card className="border-border bg-card">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <FileTextIcon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    1. Solicitação
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Preencha o formulário com informações sobre o evento, data
-                    desejada e recursos necessários.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border bg-card">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <CalendarIcon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    2. Verificação
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    A equipe verifica a disponibilidade da data e
-                    compatibilidade com a agenda da Casa.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border bg-card">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <ClockIcon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    3. Aprovação
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    A Mesa Diretora analisa e aprova a solicitação conforme
-                    critérios estabelecidos.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border bg-card">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <CheckCircleIcon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
-                    4. Confirmação
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Você recebe a confirmação com orientações e termo de
-                    responsabilidade para assinatura.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section
-        id="regras"
-        className="bg-card border-y border-border py-16 md:py-24"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Requisitos e Normas
-              </h2>
-              <p className="text-lg text-muted-foreground text-balance">
-                Condições para utilização do espaço do plenário
-              </p>
-            </div>
-
-            <Card className="border-border bg-background">
-              <CardContent className="pt-6 space-y-6">
-                <div className="prose prose-slate max-w-none">
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4">
-                    Eventos Permitidos
-                  </h3>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>Audiências públicas e consultas populares</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>Reuniões de conselhos municipais e comissões</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Eventos educacionais e culturais de interesse público
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Seminários, palestras e conferências institucionais
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>Solenidades e cerimônias oficiais</span>
-                    </li>
-                  </ul>
-
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4 mt-8">
-                    Requisitos Obrigatórios
-                  </h3>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Solicitação com{" "}
-                        <strong className="text-foreground">
-                          antecedência mínima de 15 dias
-                        </strong>{" "}
-                        da data do evento
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Identificação completa da organização ou entidade
-                        solicitante
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Descrição detalhada do evento e sua finalidade
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Indicação do responsável pelo evento com dados de
-                        contato
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>
-                        Assinatura de termo de responsabilidade pelo uso do
-                        espaço
-                      </span>
-                    </li>
-                  </ul>
-
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4 mt-8">
-                    Informações Importantes
-                  </h3>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-red-600">
-                          i
-                        </span>
-                      </div>
-                      <span>
-                        O uso do plenário não pode conflitar com as atividades
-                        legislativas da Casa
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-red-600">
-                          i
-                        </span>
-                      </div>
-                      <span>
-                        Eventos com fins político-partidários ou comerciais não
-                        são permitidos
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-red-600">
-                          i
-                        </span>
-                      </div>
-                      <span>
-                        O solicitante é responsável pela organização, limpeza e
-                        conservação do espaço
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-red-600">
-                          i
-                        </span>
-                      </div>
-                      <span>
-                        A Câmara Municipal reserva-se o direito de cancelar
-                        eventos por motivos de força maior
-                      </span>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-red-600">
-                          i
-                        </span>
-                      </div>
-                      <span>
-                        Recursos audiovisuais devem ser solicitados no
-                        formulário de agendamento
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-      <section className="bg-primary text-primary-foreground py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Pronto para Agendar?
-            </h2>
-            <p className="text-lg mb-8 text-primary-foreground/90 text-balance">
-              Utilize o espaço do plenário para seu evento institucional ou de
-              interesse público
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight text-balance">
+              Sistema de Agendamento Digital
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-balance">
+              Participe das sessões legislativas e reserve o espaço do plenário
+              de forma simples, transparente e digital
             </p>
-            <Link href="/plenario/agendar">
-              <Button size="lg" variant="secondary" className="gap-2">
-                Solicitar Agendamento do Plenário
-                <ArrowRightIcon className="h-4 w-4" />
-              </Button>
-            </Link>
+
+            {!session?.user && (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <Link href="/sign-up">
+                  <Button
+                    size="lg"
+                    className="gap-2 text-base px-8 cursor-pointer"
+                  >
+                    Criar Conta
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href="/sign-in">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="gap-2 text-base px-8 bg-transparent cursor-pointer"
+                  >
+                    Já tenho conta
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </section>
-      <footer className="border-t border-border bg-card py-8">
+      <section className="py-20 md:py-32 bg-card border-y border-border">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Como Funciona
+            </h2>
+            <p className="text-lg text-muted-foreground text-balance max-w-2xl mx-auto">
+              Processo simples e transparente em 4 etapas
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                <UserCheck className="h-8 w-8 text-primary" />
+              </div>
+              <div className="space-y-2">
+                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold">
+                  1
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-foreground">
+                  Cadastro
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Crie sua conta informando seus dados pessoais e institucionais
+                </p>
+              </div>
+            </div>
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                <FileText className="h-8 w-8 text-primary" />
+              </div>
+              <div className="space-y-2">
+                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold">
+                  2
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-foreground">
+                  Aprovação
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  O Diretor da Câmara analisa e aprova seu cadastro
+                </p>
+              </div>
+            </div>
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                <MessageSquare className="h-8 w-8 text-primary" />
+              </div>
+              <div className="space-y-2">
+                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold">
+                  3
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-foreground">
+                  Solicitação
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Solicite uso da palavra ou do plenário através do sistema
+                </p>
+              </div>
+            </div>
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                <CheckCircle className="h-8 w-8 text-primary" />
+              </div>
+              <div className="space-y-2">
+                <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold">
+                  4
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-foreground">
+                  Confirmação
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Receba a confirmação e acompanhe o status da sua solicitação
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-20 md:py-32">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Serviços Disponíveis
+            </h2>
+            <p className="text-lg text-muted-foreground text-balance max-w-2xl mx-auto">
+              Escolha o tipo de agendamento que você precisa
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="group relative p-8 rounded-2xl border-2 border-border bg-card hover:border-primary transition-all duration-300 hover:shadow-xl">
+              <div className="space-y-6">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <MessageSquare className="h-7 w-7 text-primary" />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="font-serif text-2xl font-bold text-foreground">
+                    Uso da Palavra
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Solicite o direito de opinar sobre projetos de lei durante
+                    as sessões legislativas, conforme o Artigo 210 do Regimento
+                    Interno.
+                  </p>
+                </div>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Inscrição até 17h da segunda-feira anterior</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span>Aprovação pela Mesa Diretora</span>
+                  </li>
+                </ul>
+                <Link href="/agendar" className="block">
+                  <Button className="w-full gap-2 group-hover:gap-3 transition-all">
+                    Solicitar Agora
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="group relative p-8 rounded-2xl border-2 border-border bg-card hover:border-accent transition-all duration-300 hover:shadow-xl">
+              <div className="space-y-6">
+                <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <Building2 className="h-7 w-7 text-accent" />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="font-serif text-2xl font-bold text-foreground">
+                    Uso do Plenário
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Reserve o espaço do plenário para eventos, reuniões e
+                    atividades institucionais com capacidade para até 500
+                    pessoas.
+                  </p>
+                </div>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                    <span>Antecedência mínima de 15 dias</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                    <span>Aprovação pelo Diretor da Câmara</span>
+                  </li>
+                </ul>
+                <Link href="/plenario" className="block">
+                  <Button
+                    variant="secondary"
+                    className="w-full gap-2 group-hover:gap-3 transition-all"
+                  >
+                    Saiba Mais
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer className="border-t border-border bg-card py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <CalendarIcon className="h-5 w-5 text-primary" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Building2 className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="font-serif text-sm font-semibold text-foreground">
+                <p className="font-serif text-base font-semibold text-foreground">
                   Câmara Municipal
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  Sistema de Agendamento
+                <p className="text-sm text-muted-foreground">
+                  Sistema de Agendamento Digital
                 </p>
               </div>
             </div>
-            <div className="text-center md:text-right">
-              <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Câmara Municipal. Todos os direitos
-                reservados.
-              </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-muted-foreground">
+              <Link
+                href="/cadastro/status"
+                className="hover:text-foreground transition-colors"
+              >
+                Status do Cadastro
+              </Link>
+              <Link
+                href="/meus-agendamentos"
+                className="hover:text-foreground transition-colors"
+              >
+                Meus Agendamentos
+              </Link>
+              <span className="hidden sm:inline">•</span>
+              <p>© {new Date().getFullYear()} Todos os direitos reservados</p>
             </div>
           </div>
         </div>

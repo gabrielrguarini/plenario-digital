@@ -3,8 +3,9 @@ import { authClient, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
-
+import { useRouter } from "next/navigation";
 export const AuthButton = () => {
+  const router = useRouter();
   const session = useSession();
   if (session.isPending) {
     return (
@@ -21,6 +22,8 @@ export const AuthButton = () => {
             fetchOptions: {
               onSuccess: () => {
                 toast.success("Você saiu com sucesso.");
+                router.replace("/");
+                router.refresh();
               },
             },
           });

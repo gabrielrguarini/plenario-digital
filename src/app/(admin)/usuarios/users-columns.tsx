@@ -64,7 +64,7 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "emailVerified",
+    accessorKey: "userStatus",
     header: ({ column }) => {
       return (
         <Button
@@ -77,20 +77,26 @@ export const columns: ColumnDef<User>[] = [
       );
     },
     cell: ({ row }) => {
-      const verified = row.getValue("emailVerified") as boolean;
+      if (row.original.userStatus === "APPROVED") {
+        return (
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-green-600" />
+            <span className="text-green-600 font-medium">Verificado</span>
+          </div>
+        );
+      }
+      if (row.original.userStatus === "PENDING") {
+        return (
+          <div className="flex items-center gap-2 text-yellow-500">
+            <Check className="h-4 w-4 " />
+            <span className="  font-medium">Pendente</span>
+          </div>
+        );
+      }
       return (
         <div className="flex items-center gap-2">
-          {verified ? (
-            <>
-              <Check className="h-4 w-4 text-green-600" />
-              <span className="text-green-600 font-medium">Verificado</span>
-            </>
-          ) : (
-            <>
-              <X className="h-4 w-4 text-amber-600" />
-              <span className="text-amber-600 font-medium">Pendente</span>
-            </>
-          )}
+          <X className="h-4 w-4 text-red-600" />
+          <span className="text-red-600 font-medium">Rejeitado</span>
         </div>
       );
     },
@@ -118,18 +124,21 @@ export const columns: ColumnDef<User>[] = [
     header: "Ações",
     cell: ({ row }) => {
       const user = row.original;
-      const verified = user.emailVerified;
+      const noVerified = user.userStatus !== "APPROVED";
       if (user.role === "ADMIN") return null;
 
       return (
         <Button
-          variant={verified ? "outline" : "default"}
+          variant={noVerified ? "default" : "outline"}
           size="sm"
           onClick={async () => {
-            updateUsers({ ...user, emailVerified: !verified });
+            updateUsers({
+              ...user,
+              userStatus: noVerified ? "APPROVED" : "REJECTED",
+            });
           }}
         >
-          {verified ? "Revogar Acesso" : "Liberar Acesso"}
+          {noVerified ? "Liberar Acesso" : "Revogar Acesso"}
         </Button>
       );
     },

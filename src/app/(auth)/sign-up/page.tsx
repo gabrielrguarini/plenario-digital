@@ -9,7 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeClosed, Loader2 } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Building2,
+  Eye,
+  EyeClosed,
+  Loader2,
+  Mail,
+  TextCursorInput,
+  User,
+} from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -30,6 +39,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import Link from "next/link";
 
 export default function SignUp() {
   const router = useRouter();
@@ -98,12 +108,12 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 w-full">
+    <div className="flex flex-col items-center justify-center bg-background px-4 w-full my-44">
       <Card className="w-full max-w-md rounded-md rounded-t-none">
         <CardHeader>
           <CardTitle className="text-lg md:text-xl">Cadastro</CardTitle>
           <CardDescription className="text-xs md:text-sm">
-            Entre as informações para criar uma conta.
+            Insira as informações para criar uma conta.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -115,7 +125,10 @@ export default function SignUp() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome</FormLabel>
+                      <FormLabel>
+                        <User className="h-4 w-4" />
+                        Nome
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="text"
@@ -133,7 +146,10 @@ export default function SignUp() {
                   name="lastName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Sobrenome</FormLabel>
+                      <FormLabel>
+                        <TextCursorInput className="h-4 w-4" />
+                        Sobrenome
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="text"
@@ -153,7 +169,10 @@ export default function SignUp() {
                   name="institution"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Instituição</FormLabel>
+                      <FormLabel>
+                        <Building2 className="h-4 w-4" />
+                        Instituição
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="text"
@@ -171,7 +190,10 @@ export default function SignUp() {
                   name="institutionRole"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Cargo</FormLabel>
+                      <FormLabel>
+                        <BriefcaseBusiness className="h-4 w-4" />
+                        Cargo
+                      </FormLabel>
                       <FormControl>
                         <Input type="text" placeholder="Cargo" {...field} />
                       </FormControl>
@@ -185,7 +207,10 @@ export default function SignUp() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>
+                      <Mail className="h-4 w-4" />
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -262,9 +287,6 @@ export default function SignUp() {
                   </FormItem>
                 )}
               ></FormField>
-              {form.formState.errors && (
-                <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
-              )}
               <Button
                 type="submit"
                 className="w-full cursor-pointer"
@@ -273,13 +295,29 @@ export default function SignUp() {
                 {form.formState.isSubmitting ? (
                   <Loader2 size={16} className="animate-spin" />
                 ) : (
-                  "Criando conta"
+                  "Cadastrar"
                 )}
               </Button>
+              <div className="text-center text-sm text-muted-foreground">
+                Já tem uma conta?{" "}
+                <Link
+                  href="/sign-in"
+                  className="text-primary font-medium hover:underline focus:outline-none focus:underline"
+                >
+                  Fazer login
+                </Link>
+              </div>
             </form>
           </Form>
         </CardContent>
       </Card>
+      <div className="w-full max-w-md mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <p className="text-sm text-slate-700">
+          <strong>Importante:</strong> Após o cadastro, sua conta será enviada
+          para aprovação. Você poderá utilizar seu login para visualizar a
+          situação do cadastro.
+        </p>
+      </div>
     </div>
   );
 }

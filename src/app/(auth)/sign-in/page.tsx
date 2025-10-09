@@ -19,7 +19,7 @@ import {
   FormMessage,
   FormControl,
 } from "@/components/ui/form";
-import { Eye, EyeClosed, Loader2 } from "lucide-react";
+import { Eye, EyeClosed, Loader2, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import { z } from "zod";
@@ -30,6 +30,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { useState } from "react";
+import Link from "next/link";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Email inválido" }),
@@ -61,13 +62,16 @@ export default function SignIn() {
         onError: () => {
           toast.error("Erro ao fazer login");
         },
-        onSuccess: () => router.push("/"),
+        onSuccess: () => {
+          router.push("/");
+          router.refresh();
+        },
       }
     );
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 w-full">
+    <div className="flex flex-col items-center justify-center bg-background px-4 w-full my-56">
       <Card className="w-full max-w-md rounded-md rounded-t-none">
         <CardHeader>
           <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
@@ -83,7 +87,10 @@ export default function SignIn() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>
+                      <Mail className="h-4 w-4" />
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -139,10 +146,31 @@ export default function SignIn() {
                   "Login"
                 )}
               </Button>
+              <div className="text-center text-sm text-muted-foreground">
+                Não tem uma conta?{" "}
+                <Link
+                  href="/sign-up"
+                  className="text-primary font-medium hover:underline focus:outline-none focus:underline"
+                >
+                  Criar conta
+                </Link>
+              </div>
             </form>
           </Form>
         </CardContent>
       </Card>
+      {/* <div className="mt-6 text-center">
+        <p className="text-sm text-slate-600">
+          Ao fazer login, você concorda com nossos{" "}
+          <button className="text-blue-600 hover:underline focus:outline-none focus:underline">
+            Termos de Uso
+          </button>{" "}
+          e{" "}
+          <button className="text-blue-600 hover:underline focus:outline-none focus:underline">
+            Política de Privacidade
+          </button>
+        </p>
+      </div> */}
     </div>
   );
 }

@@ -18,10 +18,10 @@ export default function RootLayout({
   return (
     <html lang="pt_BR">
       <body
-        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}
+        className={`min-h-screen flex flex-col font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}
       >
         <Header />
-        <main className="container mx-auto px-4 py-8">{children}</main>
+        <main>{children}</main>
         <Toaster />
       </body>
     </html>

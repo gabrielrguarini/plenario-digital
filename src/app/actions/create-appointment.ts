@@ -42,6 +42,7 @@ export async function createAppointment({
           wifi: equipment.wifi,
           projector: equipment.projector,
           soundSystem: equipment.soundSystem,
+          reviewedAt: new Date(),
         },
       });
 
