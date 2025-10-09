@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AppointmentStatus {
+enum Status {
   PENDING
   APPROVED
   REJECTED
@@ -28,12 +28,14 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  Appointment   Appointment[]
-  name          String
-  emailVerified Boolean       @default(false)
-  image         String?
-  sessions      Session[]
-  accounts      Account[]
+  Appointment     Appointment[]
+  name            String
+  emailVerified   Boolean       @default(false)
+  userStatus      Status        @default(PENDING)
+  rejectionReason String?
+  image           String?
+  sessions        Session[]
+  accounts        Account[]
 
   @@map("user")
 }
@@ -51,11 +53,11 @@ model Appointment {
   projector      Boolean  @default(false)
   soundSystem    Boolean  @default(false)
 
-  status          AppointmentStatus @default(PENDING)
+  status          Status   @default(PENDING)
   rejectionReason String?
   reviewedAt      DateTime
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id])
 }

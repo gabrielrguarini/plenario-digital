@@ -14,6 +14,7 @@ export const auth = betterAuth({
       institution: { type: "string", required: true, input: true },
       institutionRole: { type: "string", required: true, input: true },
       role: { type: "string", required: false, input: true },
+      userStatus: { type: "string", required: false, input: false },
     },
   },
 });
