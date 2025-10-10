@@ -238,12 +238,6 @@ export default async function LandingPage() {
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-muted-foreground">
               <Link
-                href="/cadastro/status"
-                className="hover:text-foreground transition-colors"
-              >
-                Status do Cadastro
-              </Link>
-              <Link
                 href="/meus-agendamentos"
                 className="hover:text-foreground transition-colors"
               >
