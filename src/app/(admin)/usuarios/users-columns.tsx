@@ -81,22 +81,22 @@ export const columns: ColumnDef<User>[] = [
         return (
           <div className="flex items-center gap-2">
             <Check className="h-4 w-4 text-green-600" />
-            <span className="text-green-600 font-medium">Verificado</span>
+            <span className="font-medium text-green-600">Verificado</span>
           </div>
         );
       }
       if (row.original.userStatus === "PENDING") {
         return (
           <div className="flex items-center gap-2 text-yellow-500">
-            <Check className="h-4 w-4 " />
-            <span className="  font-medium">Pendente</span>
+            <Check className="h-4 w-4" />
+            <span className="font-medium">Pendente</span>
           </div>
         );
       }
       return (
         <div className="flex items-center gap-2">
           <X className="h-4 w-4 text-red-600" />
-          <span className="text-red-600 font-medium">Rejeitado</span>
+          <span className="font-medium text-red-600">Rejeitado</span>
         </div>
       );
     },

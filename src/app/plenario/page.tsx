@@ -15,24 +15,24 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function PlenarioLandingPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <section className="container mx-auto px-4 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="bg-accent/10 text-accent mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">
             <Building2 className="h-4 w-4" />
             Espaço Público para Eventos Institucionais
           </div>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
+          <h1 className="text-foreground mb-6 font-serif text-4xl leading-tight font-bold text-balance md:text-6xl">
             Agendamento do Plenário da Câmara Municipal
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 text-balance max-w-2xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-balance md:text-xl">
             Solicite o uso do espaço do plenário para eventos, reuniões,
             audiências públicas e outras atividades de interesse público,
             conforme disponibilidade e normas de utilização.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link href="/agendar">
-              <Button size="lg" className="w-full sm:w-auto gap-2">
+              <Button size="lg" className="w-full gap-2 sm:w-auto">
                 Solicitar Agendamento
                 <ArrowRightIcon className="h-4 w-4" />
               </Button>
@@ -41,7 +41,7 @@ export default function PlenarioLandingPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto bg-transparent"
+                className="w-full bg-transparent sm:w-auto"
               >
                 Saiba Mais
               </Button>
@@ -49,25 +49,25 @@ export default function PlenarioLandingPage() {
           </div>
         </div>
       </section>
-      <section className="bg-card border-y border-border py-16 md:py-24">
+      <section className="bg-card border-border border-y py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-12 text-center">
+              <h2 className="text-foreground mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Características do Espaço
               </h2>
-              <p className="text-lg text-muted-foreground text-balance">
+              <p className="text-muted-foreground text-lg text-balance">
                 Infraestrutura completa para eventos institucionais
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-3">
               <Card className="border-border bg-background">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Users className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <Users className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     Capacidade
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -79,10 +79,10 @@ export default function PlenarioLandingPage() {
 
               <Card className="border-border bg-background">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Mic className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <Mic className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     Sistema de Som
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -94,10 +94,10 @@ export default function PlenarioLandingPage() {
 
               <Card className="border-border bg-background">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Video className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <Video className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     Recursos Audiovisuais
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -112,23 +112,23 @@ export default function PlenarioLandingPage() {
       </section>
       <section id="como-funciona" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-12 text-center">
+              <h2 className="text-foreground mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Como Funciona o Agendamento
               </h2>
-              <p className="text-lg text-muted-foreground text-balance">
+              <p className="text-muted-foreground text-lg text-balance">
                 Processo transparente para solicitação de uso do espaço
               </p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid gap-8 md:grid-cols-4">
               <Card className="border-border bg-card">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <FileTextIcon className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <FileTextIcon className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     1. Solicitação
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -140,10 +140,10 @@ export default function PlenarioLandingPage() {
 
               <Card className="border-border bg-card">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <CalendarIcon className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <CalendarIcon className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     2. Verificação
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -155,10 +155,10 @@ export default function PlenarioLandingPage() {
 
               <Card className="border-border bg-card">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <ClockIcon className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <ClockIcon className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     3. Aprovação
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -170,10 +170,10 @@ export default function PlenarioLandingPage() {
 
               <Card className="border-border bg-card">
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <CheckCircleIcon className="h-6 w-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <CheckCircleIcon className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 font-serif text-xl font-semibold">
                     4. Confirmação
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -188,58 +188,58 @@ export default function PlenarioLandingPage() {
       </section>
       <section
         id="regras"
-        className="bg-card border-y border-border py-16 md:py-24"
+        className="bg-card border-border border-y py-16 md:py-24"
       >
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-12 text-center">
+              <h2 className="text-foreground mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Requisitos e Normas
               </h2>
-              <p className="text-lg text-muted-foreground text-balance">
+              <p className="text-muted-foreground text-lg text-balance">
                 Condições para utilização do espaço do plenário
               </p>
             </div>
 
             <Card className="border-border bg-background">
-              <CardContent className="pt-6 space-y-6">
+              <CardContent className="space-y-6 pt-6">
                 <div className="prose prose-slate max-w-none">
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4">
+                  <h3 className="text-foreground mb-4 font-serif text-xl font-semibold">
                     Eventos Permitidos
                   </h3>
-                  <ul className="space-y-3 text-muted-foreground">
+                  <ul className="text-muted-foreground space-y-3">
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>Audiências públicas e consultas populares</span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>Reuniões de conselhos municipais e comissões</span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Eventos educacionais e culturais de interesse público
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Seminários, palestras e conferências institucionais
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>Solenidades e cerimônias oficiais</span>
                     </li>
                   </ul>
 
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4 mt-8">
+                  <h3 className="text-foreground mt-8 mb-4 font-serif text-xl font-semibold">
                     Requisitos Obrigatórios
                   </h3>
-                  <ul className="space-y-3 text-muted-foreground">
+                  <ul className="text-muted-foreground space-y-3">
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Solicitação com{" "}
                         <strong className="text-foreground">
@@ -249,27 +249,27 @@ export default function PlenarioLandingPage() {
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Identificação completa da organização ou entidade
                         solicitante
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Descrição detalhada do evento e sua finalidade
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Indicação do responsável pelo evento com dados de
                         contato
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <CheckCircleIcon className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="text-accent mt-0.5 h-5 w-5 flex-shrink-0" />
                       <span>
                         Assinatura de termo de responsabilidade pelo uso do
                         espaço
@@ -277,13 +277,13 @@ export default function PlenarioLandingPage() {
                     </li>
                   </ul>
 
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4 mt-8">
+                  <h3 className="text-foreground mt-8 mb-4 font-serif text-xl font-semibold">
                     Informações Importantes
                   </h3>
-                  <ul className="space-y-3 text-muted-foreground">
+                  <ul className="text-muted-foreground space-y-3">
                     <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-muted-foreground">
+                      <div className="bg-muted mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                        <span className="text-muted-foreground text-xs font-semibold">
                           i
                         </span>
                       </div>
@@ -293,8 +293,8 @@ export default function PlenarioLandingPage() {
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-muted-foreground">
+                      <div className="bg-muted mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                        <span className="text-muted-foreground text-xs font-semibold">
                           i
                         </span>
                       </div>
@@ -304,8 +304,8 @@ export default function PlenarioLandingPage() {
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-muted-foreground">
+                      <div className="bg-muted mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                        <span className="text-muted-foreground text-xs font-semibold">
                           i
                         </span>
                       </div>
@@ -315,8 +315,8 @@ export default function PlenarioLandingPage() {
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-muted-foreground">
+                      <div className="bg-muted mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                        <span className="text-muted-foreground text-xs font-semibold">
                           i
                         </span>
                       </div>
@@ -326,8 +326,8 @@ export default function PlenarioLandingPage() {
                       </span>
                     </li>
                     <li className="flex gap-3">
-                      <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-semibold text-muted-foreground">
+                      <div className="bg-muted mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+                        <span className="text-muted-foreground text-xs font-semibold">
                           i
                         </span>
                       </div>
@@ -345,11 +345,11 @@ export default function PlenarioLandingPage() {
       </section>
       <section className="bg-primary text-primary-foreground py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
               Pronto para Agendar?
             </h2>
-            <p className="text-lg mb-8 text-primary-foreground/90 text-balance">
+            <p className="text-primary-foreground/90 mb-8 text-lg text-balance">
               Utilize o espaço do plenário para seu evento institucional ou de
               interesse público
             </p>
@@ -362,26 +362,26 @@ export default function PlenarioLandingPage() {
           </div>
         </div>
       </section>
-      <footer className="border-t border-border bg-card py-8">
+      <footer className="border-border bg-card border-t py-8">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <CalendarIcon className="h-5 w-5 text-primary" />
+              <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-lg">
+                <CalendarIcon className="text-primary h-5 w-5" />
               </div>
               <div>
-                <p className="font-serif text-sm font-semibold text-foreground">
+                <p className="text-foreground font-serif text-sm font-semibold">
                   Câmara Municipal
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   Sistema de Agendamento
                 </p>
               </div>
             </div>
             <div className="text-center md:text-right">
-              <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} Câmara Municipal. Todos os direitos
-                reservados.
+              <p className="text-muted-foreground text-sm">
+                © {new Date().getFullYear()} Câmara Municipal. Todos os
+                direitos reservados.
               </p>
             </div>
           </div>

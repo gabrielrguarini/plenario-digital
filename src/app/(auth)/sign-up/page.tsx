@@ -108,7 +108,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-background px-4 w-full my-44">
+    <div className="bg-background my-44 flex w-full flex-col items-center justify-center px-4">
       <Card className="w-full max-w-md rounded-md rounded-t-none">
         <CardHeader>
           <CardTitle className="text-lg md:text-xl">Cadastro</CardTitle>
@@ -298,11 +298,11 @@ export default function SignUp() {
                   "Cadastrar"
                 )}
               </Button>
-              <div className="text-center text-sm text-muted-foreground">
+              <div className="text-muted-foreground text-center text-sm">
                 Já tem uma conta?{" "}
                 <Link
                   href="/sign-in"
-                  className="text-primary font-medium hover:underline focus:outline-none focus:underline"
+                  className="text-primary font-medium hover:underline focus:underline focus:outline-none"
                 >
                   Fazer login
                 </Link>
@@ -311,7 +311,7 @@ export default function SignUp() {
           </Form>
         </CardContent>
       </Card>
-      <div className="w-full max-w-md mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <div className="mt-6 w-full max-w-md rounded-lg border border-blue-200 bg-blue-50 p-4">
         <p className="text-sm text-slate-700">
           <strong>Importante:</strong> Após o cadastro, sua conta será enviada
           para aprovação. Você poderá utilizar seu login para visualizar a

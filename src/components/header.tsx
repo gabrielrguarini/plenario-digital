@@ -13,33 +13,33 @@ export const Header = async () => {
   const isAdmin = session?.user?.role === "ADMIN";
   const isApproved = session?.user?.userStatus === Status.APPROVED;
   return (
-    <header className="border-b border-border bg-card">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header className="border-border bg-card border-b">
+      <div className="container mx-auto flex items-center justify-between px-4 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-            <CalendarIcon className="h-6 w-6 text-primary" />
+          <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-lg">
+            <CalendarIcon className="text-primary h-6 w-6" />
           </div>
           <div>
-            <h1 className="font-serif text-lg font-semibold text-foreground">
+            <h1 className="text-foreground font-serif text-lg font-semibold">
               Câmara Municipal de Espera Feliz
             </h1>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               Sistema de Agendamento
             </p>
           </div>
         </Link>
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden items-center gap-6 md:flex">
           {isApproved && !isAdmin && (
             <>
               <Link
                 href="/meus-agendamentos"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 Meus Agendamentos
               </Link>
               <Link
                 href="/agendar"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 Agendar
               </Link>
@@ -49,13 +49,13 @@ export const Header = async () => {
             <>
               <Link
                 href="/agendamentos"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 Agendamentos
               </Link>
               <Link
                 href="/usuarios"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 Usuários
               </Link>

@@ -75,7 +75,7 @@ export const AppointmentCard = ({
       <CardContent className="space-y-4">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="flex items-center gap-2 text-sm">
-            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <Calendar className="text-muted-foreground h-4 w-4" />
             <span>
               {format(appointment.start, "dd 'de' MMMM 'de' yyyy", {
                 locale: ptBR,
@@ -83,14 +83,14 @@ export const AppointmentCard = ({
             </span>
           </div>
           <div className="flex items-center gap-2 text-sm">
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="text-muted-foreground h-4 w-4" />
             <span>
               {format(appointment.start, "HH:mm", { locale: ptBR })} -{" "}
               {format(appointment.end, "HH:mm", { locale: ptBR })}
             </span>
           </div>
           <div className="flex items-center gap-2 text-sm">
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <Users className="text-muted-foreground h-4 w-4" />
             <span>{appointment.expectedGuests} convidados esperados</span>
           </div>
         </div>
@@ -115,27 +115,27 @@ export const AppointmentCard = ({
         {appointment.extraRequest && (
           <div>
             <p className="mb-1 text-sm font-medium">Solicitações adicionais:</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               {appointment.extraRequest}
             </p>
           </div>
         )}
         {appointment.status === "REJECTED" && appointment.rejectionReason && (
-          <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-3">
+          <div className="border-destructive/50 bg-destructive/10 rounded-lg border p-3">
             <div className="flex items-start gap-2">
-              <AlertCircle className="mt-0.5 h-4 w-4 text-destructive" />
+              <AlertCircle className="text-destructive mt-0.5 h-4 w-4" />
               <div>
-                <p className="text-sm font-medium text-destructive">
+                <p className="text-destructive text-sm font-medium">
                   Motivo da rejeição:
                 </p>
-                <p className="mt-1 text-sm text-destructive/90">
+                <p className="text-destructive/90 mt-1 text-sm">
                   {appointment.rejectionReason}
                 </p>
               </div>
             </div>
           </div>
         )}
-        <div className="pt-2 text-xs text-muted-foreground">
+        <div className="text-muted-foreground pt-2 text-xs">
           Solicitado em{" "}
           {format(appointment.createdAt, "dd/MM/yyyy 'às' HH:mm", {
             locale: ptBR,

@@ -31,7 +31,7 @@ export const appointmentSchema = z
     {
       message: "Horário de término deve ser posterior ao horário de início",
       path: ["endTime"],
-    }
+    },
   );
 
 export type AppointmentFormData = z.infer<typeof appointmentSchema>;

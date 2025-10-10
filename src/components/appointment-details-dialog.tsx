@@ -73,7 +73,7 @@ export function AppointmentDetailsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             Detalhes do Agendamento
@@ -85,7 +85,7 @@ export function AppointmentDetailsDialog({
               "dd 'de' MMMM 'às' HH:mm",
               {
                 locale: ptBR,
-              }
+              },
             )}
           </DialogDescription>
         </DialogHeader>
@@ -93,7 +93,7 @@ export function AppointmentDetailsDialog({
         <div className="space-y-6">
           {/* Status */}
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground mb-2">
+            <h3 className="text-muted-foreground mb-2 text-sm font-medium">
               Status
             </h3>
             <Badge
@@ -101,24 +101,24 @@ export function AppointmentDetailsDialog({
                 appointment.status === "APPROVED"
                   ? "default"
                   : appointment.status === "REJECTED"
-                  ? "destructive"
-                  : "secondary"
+                    ? "destructive"
+                    : "secondary"
               }
             >
               {appointment.status === "APPROVED"
                 ? "Aprovado"
                 : appointment.status === "REJECTED"
-                ? "Rejeitado"
-                : "Pendente"}
+                  ? "Rejeitado"
+                  : "Pendente"}
             </Badge>
           </div>
 
           {/* Date and Time */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex items-start gap-3">
-              <CalendarIcon className="size-5 text-primary mt-0.5" />
+              <CalendarIcon className="text-primary mt-0.5 size-5" />
               <div>
-                <h3 className="text-sm font-medium text-muted-foreground">
+                <h3 className="text-muted-foreground text-sm font-medium">
                   Data
                 </h3>
                 <p className="text-base">
@@ -127,16 +127,16 @@ export function AppointmentDetailsDialog({
                     "dd 'de' MMMM 'de' yyyy",
                     {
                       locale: ptBR,
-                    }
+                    },
                   )}
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <ClockIcon className="size-5 text-primary mt-0.5" />
+              <ClockIcon className="text-primary mt-0.5 size-5" />
               <div>
-                <h3 className="text-sm font-medium text-muted-foreground">
+                <h3 className="text-muted-foreground text-sm font-medium">
                   Horário
                 </h3>
                 <p className="text-base">
@@ -152,31 +152,31 @@ export function AppointmentDetailsDialog({
 
           {/* Purpose */}
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground mb-2">
+            <h3 className="text-muted-foreground mb-2 text-sm font-medium">
               Finalidade
             </h3>
             <p className="text-base">{appointment.purpose}</p>
           </div>
 
           {/* Responsible Person */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex items-start gap-3">
-              <UserIcon className="size-5 text-primary mt-0.5" />
+              <UserIcon className="text-primary mt-0.5 size-5" />
               <div>
-                <h3 className="text-sm font-medium text-muted-foreground">
+                <h3 className="text-muted-foreground text-sm font-medium">
                   Responsável
                 </h3>
                 <p className="text-base">{appointment.responsible}</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {appointment.user.institutionRole}
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <BuildingIcon className="size-5 text-primary mt-0.5" />
+              <BuildingIcon className="text-primary mt-0.5 size-5" />
               <div>
-                <h3 className="text-sm font-medium text-muted-foreground">
+                <h3 className="text-muted-foreground text-sm font-medium">
                   Instituição
                 </h3>
                 <p className="text-base">{appointment.user.institution}</p>
@@ -186,9 +186,9 @@ export function AppointmentDetailsDialog({
 
           {/* Expected Guests */}
           <div className="flex items-start gap-3">
-            <UsersIcon className="size-5 text-primary mt-0.5" />
+            <UsersIcon className="text-primary mt-0.5 size-5" />
             <div>
-              <h3 className="text-sm font-medium text-muted-foreground">
+              <h3 className="text-muted-foreground text-sm font-medium">
                 Número de Convidados
               </h3>
               <p className="text-base">{appointment.expectedGuests} pessoas</p>
@@ -198,7 +198,7 @@ export function AppointmentDetailsDialog({
           {/* Equipment */}
           {selectedEquipment.length > 0 && (
             <div>
-              <h3 className="text-sm font-medium text-muted-foreground mb-2">
+              <h3 className="text-muted-foreground mb-2 text-sm font-medium">
                 Equipamentos Solicitados
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -214,10 +214,10 @@ export function AppointmentDetailsDialog({
           {/* Extra Requests */}
           {appointment.extraRequest && (
             <div>
-              <h3 className="text-sm font-medium text-muted-foreground mb-2">
+              <h3 className="text-muted-foreground mb-2 text-sm font-medium">
                 Solicitações Extras
               </h3>
-              <p className="text-base text-muted-foreground">
+              <p className="text-muted-foreground text-base">
                 {appointment.extraRequest}
               </p>
             </div>

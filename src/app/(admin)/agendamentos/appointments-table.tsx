@@ -37,7 +37,7 @@ export function AppointmentsDataTable({
   const filteredData = useMemo(() => {
     if (statusFilter === "all") return appointments;
     return appointments.filter(
-      (appointment) => appointment.status === statusFilter
+      (appointment) => appointment.status === statusFilter,
     );
   }, [appointments, statusFilter]);
 

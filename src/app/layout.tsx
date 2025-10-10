@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="pt_BR">
       <body
-        className={`min-h-screen flex flex-col font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}
+        className={`flex min-h-screen flex-col font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}
       >
         <Header />
         <main>{children}</main>

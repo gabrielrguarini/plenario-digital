@@ -10,7 +10,7 @@ export function getMockedUnavailableDates(): Date[] {
   // Add some dates from next month
   unavailableDates.push(new Date(today.getFullYear(), today.getMonth() + 1, 5));
   unavailableDates.push(
-    new Date(today.getFullYear(), today.getMonth() + 1, 12)
+    new Date(today.getFullYear(), today.getMonth() + 1, 12),
   );
 
   return unavailableDates;

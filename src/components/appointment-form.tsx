@@ -130,7 +130,7 @@ export function AppointmentForm({
                       variant="outline"
                       className={cn(
                         "w-full pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
+                        !field.value && "text-muted-foreground",
                       )}
                     >
                       {field.value ? (
@@ -155,7 +155,7 @@ export function AppointmentForm({
                         unavailableDates.some(
                           (d) =>
                             d.toDateString() === date.toDateString() ||
-                            date > new Date(today.getFullYear(), 11, 31)
+                            date > new Date(today.getFullYear(), 11, 31),
                         )
                       );
                     }}
@@ -169,7 +169,7 @@ export function AppointmentForm({
           )}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <FormField
             control={form.control}
             name="startTime"
@@ -216,7 +216,7 @@ export function AppointmentForm({
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <FormField
             control={form.control}
             name="expectedGuests"
@@ -240,12 +240,12 @@ export function AppointmentForm({
           />
           <div className="space-y-4">
             <FormLabel>Equipamentos Necessários</FormLabel>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField
                 control={form.control}
                 name="equipment.projector"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormItem className="flex flex-row items-start space-y-0 space-x-3">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -253,7 +253,7 @@ export function AppointmentForm({
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                      <FormLabel className="flex cursor-pointer items-center gap-2 font-normal">
                         <Presentation className="h-4 w-4" />
                         Sistema de Vídeo
                       </FormLabel>
@@ -266,7 +266,7 @@ export function AppointmentForm({
                 control={form.control}
                 name="equipment.wifi"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormItem className="flex flex-row items-start space-y-0 space-x-3">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -274,7 +274,7 @@ export function AppointmentForm({
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                      <FormLabel className="flex cursor-pointer items-center gap-2 font-normal">
                         <Wifi className="h-4 w-4" />
                         Wifi
                       </FormLabel>
@@ -286,7 +286,7 @@ export function AppointmentForm({
                 control={form.control}
                 name="equipment.soundSystem"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormItem className="flex flex-row items-start space-y-0 space-x-3">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -294,7 +294,7 @@ export function AppointmentForm({
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="flex items-center gap-2 font-normal cursor-pointer">
+                      <FormLabel className="flex cursor-pointer items-center gap-2 font-normal">
                         <Mic className="h-4 w-4" />
                         Microfone
                       </FormLabel>

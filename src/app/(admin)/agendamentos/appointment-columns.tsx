@@ -72,7 +72,7 @@ export const columns: ColumnDef<AppointmentWithUser>[] = [
           <div className="font-medium">
             {format(start, "dd/MM/yyyy", { locale: ptBR })}
           </div>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             {format(start, "HH:mm", { locale: ptBR })}
           </div>
         </div>

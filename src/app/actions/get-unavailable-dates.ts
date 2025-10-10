@@ -10,7 +10,7 @@ const fetchPublicHolidays = async ({
   try {
     const response = await fetch(
       `https://brasilapi.com.br/api/feriados/v1/${year}`,
-      { cache: "force-cache", next: { revalidate: 86400 } }
+      { cache: "force-cache", next: { revalidate: 86400 } },
     );
     if (!response.ok) throw new Error("Error fetching public holidays");
     const holidays = await response.json();
@@ -29,7 +29,7 @@ export async function getUnavailableDates() {
   try {
     const appointments = await getAppointments();
     const unavailableDates = appointments.map(
-      (appointment) => appointment.start
+      (appointment) => appointment.start,
     );
 
     const today = new Date();

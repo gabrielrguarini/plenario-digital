@@ -25,19 +25,19 @@ export default async function AppointmentPage() {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="text-center mb-8 md:mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-            <CalendarIcon className="h-8 w-8 text-primary" />
+        <div className="mb-8 text-center md:mb-12">
+          <div className="bg-primary/10 mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full">
+            <CalendarIcon className="text-primary h-8 w-8" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2 text-balance">
+          <h1 className="mb-2 text-3xl font-bold text-balance text-slate-900 md:text-4xl">
             Sistema de Agendamento
           </h1>
-          <p className="text-slate-600 text-lg text-balance">
+          <p className="text-lg text-balance text-slate-600">
             Agende seu espaço de forma rápida e prática
           </p>
         </div>
-        <div className="max-w-3xl mx-auto">
-          <Card className="shadow-lg border-slate-200">
+        <div className="mx-auto max-w-3xl">
+          <Card className="border-slate-200 shadow-lg">
             <CardHeader className="space-y-1 pb-6">
               <CardTitle className="text-2xl">Novo Agendamento</CardTitle>
               <CardDescription className="text-base">
@@ -49,11 +49,11 @@ export default async function AppointmentPage() {
               <AppointmentForm unavailableDates={unavailableDates} />
             </CardContent>
           </Card>
-          <Card className="mt-6 bg-blue-50 border-blue-200">
+          <Card className="mt-6 border-blue-200 bg-blue-50">
             <CardContent className="pt-6">
               <div className="flex gap-3">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
                     <CalendarIcon className="h-4 w-4 text-blue-600" />
                   </div>
                 </div>
@@ -61,7 +61,7 @@ export default async function AppointmentPage() {
                   <h3 className="font-semibold text-blue-900">
                     Informações Importantes
                   </h3>
-                  <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+                  <ul className="list-inside list-disc space-y-1 text-sm text-blue-800">
                     <li>
                       Datas já reservadas aparecerão desabilitadas no calendário
                     </li>

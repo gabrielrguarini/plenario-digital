@@ -24,7 +24,7 @@ export async function createAppointment({
       !unavailable.some(
         (d) =>
           d.toDateString() === date.toDateString() ||
-          date > new Date(new Date().getFullYear(), 11, 31)
+          date > new Date(new Date().getFullYear(), 11, 31),
       )
     ) {
       if (!session?.user) {

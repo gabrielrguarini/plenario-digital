@@ -66,12 +66,12 @@ export default function SignIn() {
           router.push("/");
           router.refresh();
         },
-      }
+      },
     );
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-background px-4 w-full my-56">
+    <div className="bg-background my-56 flex w-full flex-col items-center justify-center px-4">
       <Card className="w-full max-w-md rounded-md rounded-t-none">
         <CardHeader>
           <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
@@ -146,11 +146,11 @@ export default function SignIn() {
                   "Login"
                 )}
               </Button>
-              <div className="text-center text-sm text-muted-foreground">
+              <div className="text-muted-foreground text-center text-sm">
                 Não tem uma conta?{" "}
                 <Link
                   href="/sign-up"
-                  className="text-primary font-medium hover:underline focus:outline-none focus:underline"
+                  className="text-primary font-medium hover:underline focus:underline focus:outline-none"
                 >
                   Criar conta
                 </Link>

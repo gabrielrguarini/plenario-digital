@@ -47,8 +47,8 @@ export function AppointmentsClient({
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <CalendarIcon className="size-8 text-primary" />
+          <div className="mb-2 flex items-center gap-3">
+            <CalendarIcon className="text-primary size-8" />
             <h1 className="text-4xl font-bold text-balance">
               Gerenciar Agendamentos
             </h1>
@@ -58,7 +58,7 @@ export function AppointmentsClient({
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg border overflow-hidden">
+        <div className="overflow-hidden rounded-lg border bg-white shadow-lg">
           <Table>
             <TableHeader>
               <TableRow>
@@ -74,7 +74,7 @@ export function AppointmentsClient({
             <TableBody>
               {appointments.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center py-8">
+                  <TableCell colSpan={7} className="py-8 text-center">
                     <p className="text-muted-foreground">
                       Nenhum agendamento encontrado
                     </p>
