@@ -94,7 +94,7 @@ export default function SignIn() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="m@example.com"
+                        placeholder="example@email.com"
                         {...field}
                         required
                       />

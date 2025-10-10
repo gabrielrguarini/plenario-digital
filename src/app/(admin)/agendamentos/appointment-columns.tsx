@@ -17,8 +17,8 @@ import {
 import { AppointmentWithUser } from "@/lib/shared.types";
 
 const statusMap = {
-  PENDING: { label: "Pendente", variant: "default" as const },
-  APPROVED: { label: "Aprovado", variant: "default" as const },
+  PENDING: { label: "Pendente", variant: "warning" as const },
+  APPROVED: { label: "Aprovado", variant: "success" as const },
   REJECTED: { label: "Rejeitado", variant: "destructive" as const },
 };
 
