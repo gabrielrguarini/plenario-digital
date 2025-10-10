@@ -270,6 +270,7 @@ export default function SignUp() {
                             type="button"
                             onClick={() => setIsVisible((prev) => !prev)}
                             className="flex size-6 items-center justify-center rounded-md"
+                            tabIndex={-1}
                           >
                             {isVisible ? (
                               <EyeClosed className="size-4" />
@@ -302,6 +303,7 @@ export default function SignUp() {
                             type="button"
                             onClick={() => setIsVisible((prev) => !prev)}
                             className="flex size-6 items-center justify-center rounded-md"
+                            tabIndex={-1}
                           >
                             {isVisible ? (
                               <EyeClosed className="size-4" />
