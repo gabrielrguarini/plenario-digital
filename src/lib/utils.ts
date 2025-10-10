@@ -12,3 +12,7 @@ export function getLocalDate(date: Date, time: string) {
   const [hour, minute] = time.split(":").map(Number);
   return new Date(year, month, day, hour, minute);
 }
+
+export const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
+);

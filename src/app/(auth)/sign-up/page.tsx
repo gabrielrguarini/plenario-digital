@@ -16,6 +16,7 @@ import {
   EyeClosed,
   Loader2,
   Mail,
+  Smartphone,
   TextCursorInput,
   User,
 } from "lucide-react";
@@ -40,6 +41,8 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import Link from "next/link";
+import { withMask } from "use-mask-input";
+import { phoneRegex } from "@/lib/utils";
 
 export default function SignUp() {
   const router = useRouter();
@@ -52,6 +55,14 @@ export default function SignUp() {
       institutionRole: z
         .string()
         .min(2, { message: "Função na instituição obrigatória" }),
+      phoneNumber: z
+        .string()
+        .min(12, "Telefone deve ter no minímo 12 caractes")
+        .regex(phoneRegex, "Número Inválido")
+        .transform((phone) => {
+          const digits = phone.replace(/\D/g, "");
+          return `+55${digits}`;
+        }),
       email: z.string().email({ message: "Email inválido" }),
       password: z.string().min(6, { message: "Mínimo de 6 digtios" }),
       passwordConfirmation: z
@@ -72,6 +83,7 @@ export default function SignUp() {
       lastName: "",
       institution: "",
       institutionRole: "",
+      phoneNumber: "",
       password: "",
       passwordConfirmation: "",
       email: "",
@@ -84,6 +96,7 @@ export default function SignUp() {
     email,
     institution,
     institutionRole,
+    phoneNumber,
     password,
   }: SignUpFormData) => {
     console.log("Enviando dados:", name);
@@ -93,6 +106,7 @@ export default function SignUp() {
       name: `${name} ${lastName}`,
       institution,
       institutionRole,
+      phoneNumber,
       callbackURL: "/agendar",
       fetchOptions: {
         onResponse: () => {},
@@ -108,7 +122,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="bg-background my-44 flex w-full flex-col items-center justify-center px-4">
+    <div className="bg-background my-36 flex w-full flex-col items-center justify-center px-4">
       <Card className="w-full max-w-md rounded-md rounded-t-none">
         <CardHeader>
           <CardTitle className="text-lg md:text-xl">Cadastro</CardTitle>
@@ -201,28 +215,43 @@ export default function SignUp() {
                     </FormItem>
                   )}
                 ></FormField>
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <Smartphone className="h-4 w-4" /> Whatsapp
+                      </FormLabel>
+                      <FormControl ref={withMask("(99) [9]9999-9999")}>
+                        <Input placeholder="(99) 99999-9999" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <Mail className="h-4 w-4" />
+                        Email
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="exemplo@email.com"
+                          {...field}
+                          required
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                ></FormField>
               </div>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      <Mail className="h-4 w-4" />
-                      Email
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="exemplo@email.com"
-                        {...field}
-                        required
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              ></FormField>
               <FormField
                 control={form.control}
                 name="password"
