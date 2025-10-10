@@ -41,18 +41,12 @@ export const UserStatus = ({ session }: { session: Session }) => {
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl">Seus Dados</CardTitle>
               {isPending ? (
-                <Badge
-                  variant="secondary"
-                  className="bg-yellow-100 text-yellow-800 border-yellow-300"
-                >
+                <Badge variant="warning">
                   <Clock className="h-3 w-3 mr-1" />
                   Pendente
                 </Badge>
               ) : (
-                <Badge
-                  variant="secondary"
-                  className="bg-red-100 text-red-800 border-red-300"
-                >
+                <Badge variant="destructive">
                   <XCircle className="h-3 w-3 mr-1" />
                   Rejeitado
                 </Badge>
