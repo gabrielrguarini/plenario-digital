@@ -11,7 +11,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { AppointmentWithUser } from "@/lib/shared.types";
 import { columns } from "./appointment-columns";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 export function AppointmentsDataTable({
   appointments,
@@ -21,18 +21,6 @@ export function AppointmentsDataTable({
   const [selectedAppointment, setSelectedAppointment] =
     useState<AppointmentWithUser | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");
-
-  useEffect(() => {
-    const handleViewAppointment = (event: Event) => {
-      const customEvent = event as CustomEvent<AppointmentWithUser>;
-      setSelectedAppointment(customEvent.detail);
-    };
-
-    window.addEventListener("view-appointment", handleViewAppointment);
-    return () => {
-      window.removeEventListener("view-appointment", handleViewAppointment);
-    };
-  }, []);
 
   const filteredData = useMemo(() => {
     if (statusFilter === "all") return appointments;

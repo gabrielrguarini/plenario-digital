@@ -20,6 +20,7 @@ import {
   UsersIcon,
   CheckCircleIcon,
   XCircleIcon,
+  Smartphone,
 } from "lucide-react";
 import { AppointmentWithUser } from "@/lib/shared.types";
 import { Status } from "@/generated/prisma";
@@ -185,14 +186,29 @@ export function AppointmentDetailsDialog({
           </div>
 
           {/* Expected Guests */}
-          <div className="flex items-start gap-3">
-            <UsersIcon className="text-primary mt-0.5 size-5" />
-            <div>
-              <h3 className="text-muted-foreground text-sm font-medium">
-                Número de Convidados
-              </h3>
-              <p className="text-base">{appointment.expectedGuests} pessoas</p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="flex items-start gap-3">
+              <UsersIcon className="text-primary mt-0.5 size-5" />
+              <div>
+                <h3 className="text-muted-foreground text-sm font-medium">
+                  Número de Convidados
+                </h3>
+                <p className="text-base">
+                  {appointment.expectedGuests} pessoas
+                </p>
+              </div>
             </div>
+            {appointment.user.phoneNumber && (
+              <div className="flex items-start gap-3">
+                <Smartphone className="text-primary mt-0.5 size-5" />
+                <div>
+                  <h3 className="text-muted-foreground text-sm font-medium">
+                    Whatsapp
+                  </h3>
+                  <p className="text-base">{appointment.user.phoneNumber}</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Equipment */}

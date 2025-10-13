@@ -7,6 +7,7 @@ export type AppointmentWithUser = Prisma.AppointmentGetPayload<{
         name: true;
         institution: true;
         institutionRole: true;
+        phoneNumber: true;
       };
     };
   };

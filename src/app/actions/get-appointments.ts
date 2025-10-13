@@ -11,6 +11,7 @@ export async function getAppointments() {
             name: true,
             institution: true,
             institutionRole: true,
+            phoneNumber: true,
           },
         },
       },
