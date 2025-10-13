@@ -3,7 +3,12 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import {
+  ArrowUpDown,
+  MoreHorizontal,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +20,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AppointmentWithUser } from "@/lib/shared.types";
+import { updateAppointmentStatus } from "@/app/actions/update-appointment-status";
+import { Status } from "@/generated/prisma";
+import { toast } from "sonner";
 
 const statusMap = {
   PENDING: { label: "Pendente", variant: "warning" as const },
@@ -22,7 +30,30 @@ const statusMap = {
   REJECTED: { label: "Rejeitado", variant: "destructive" as const },
 };
 
-export const columns: ColumnDef<AppointmentWithUser>[] = [
+const handleChange = async ({
+  appointmentId,
+  status,
+  rejectionReason,
+}: {
+  appointmentId: string;
+  status: Status;
+  rejectionReason?: string;
+}) => {
+  const updatedAppointment = await updateAppointmentStatus({
+    appointmentId,
+    status,
+    rejectionReason,
+  });
+  if (!updatedAppointment) {
+    toast.error("Erro ao atualizar o agendamento");
+    return;
+  }
+  toast.success("Agendamento atualizado com sucesso");
+};
+
+export const columns = (
+  onViewAppointment: (appointment: AppointmentWithUser) => void,
+): ColumnDef<AppointmentWithUser>[] => [
   {
     accessorKey: "user.name",
     id: "responsible",
@@ -40,7 +71,7 @@ export const columns: ColumnDef<AppointmentWithUser>[] = [
     cell: ({ row }) => {
       return <div className="font-medium">{row.original.user.name}</div>;
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, value) => {
       return row.original.user.name.toLowerCase().includes(value.toLowerCase());
     },
   },
@@ -126,17 +157,35 @@ export const columns: ColumnDef<AppointmentWithUser>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                // This will be handled by the parent component
-                const event = new CustomEvent("view-appointment", {
-                  detail: appointment,
-                });
-                window.dispatchEvent(event);
-              }}
-            >
+            <DropdownMenuItem onClick={() => onViewAppointment(appointment)}>
               Ver detalhes
             </DropdownMenuItem>
+            {appointment.status === "PENDING" && (
+              <>
+                <DropdownMenuItem
+                  variant="success"
+                  onClick={() =>
+                    handleChange({
+                      appointmentId: appointment.id,
+                      status: "APPROVED",
+                    })
+                  }
+                >
+                  Aprovar <ThumbsUp />
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  variant="destructive"
+                  onClick={() =>
+                    handleChange({
+                      appointmentId: appointment.id,
+                      status: "REJECTED",
+                    })
+                  }
+                >
+                  Rejeitar <ThumbsDown />
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       );

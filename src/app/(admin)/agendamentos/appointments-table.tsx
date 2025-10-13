@@ -59,7 +59,9 @@ export function AppointmentsDataTable({
       </div>
 
       <DataTable
-        columns={columns}
+        columns={columns((appointment) => {
+          setSelectedAppointment(appointment);
+        })}
         data={filteredData}
         searchKey="responsible"
         searchPlaceholder="Buscar por responsável..."
