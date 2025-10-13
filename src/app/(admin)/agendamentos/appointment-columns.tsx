@@ -160,7 +160,7 @@ export const columns = (
             <DropdownMenuItem onClick={() => onViewAppointment(appointment)}>
               Ver detalhes
             </DropdownMenuItem>
-            {appointment.status === "PENDING" && (
+            {appointment.status === "PENDING" ? (
               <>
                 <DropdownMenuItem
                   variant="success"
@@ -185,6 +185,17 @@ export const columns = (
                   Rejeitar <ThumbsDown />
                 </DropdownMenuItem>
               </>
+            ) : (
+              <DropdownMenuItem
+                onClick={() =>
+                  handleChange({
+                    appointmentId: appointment.id,
+                    status: "PENDING",
+                  })
+                }
+              >
+                Pendente
+              </DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
