@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { User } from "@/generated/prisma";
-import { columns } from "./users-columns";
+import { columns } from "./user-columns";
 
 interface UsersDataTableProps {
   users: User[];
