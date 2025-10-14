@@ -124,22 +124,43 @@ export const columns: ColumnDef<User>[] = [
     header: "Ações",
     cell: ({ row }) => {
       const user = row.original;
-      const noVerified = user.userStatus !== "APPROVED";
+      const isApproved = user.userStatus === "APPROVED";
+      const isRejected = user.userStatus === "REJECTED";
       if (user.role === "ADMIN") return null;
 
       return (
-        <Button
-          variant={noVerified ? "default" : "outline"}
-          size="sm"
-          onClick={async () => {
-            updateUsers({
-              ...user,
-              userStatus: noVerified ? "APPROVED" : "REJECTED",
-            });
-          }}
-        >
-          {noVerified ? "Liberar Acesso" : "Revogar Acesso"}
-        </Button>
+        <div className="flex gap-2">
+          {!isApproved && (
+            <Button
+              variant={"default"}
+              size="sm"
+              disabled={isApproved}
+              onClick={async () => {
+                updateUsers({
+                  ...user,
+                  userStatus: "APPROVED",
+                });
+              }}
+            >
+              {"Liberar Acesso"}
+            </Button>
+          )}
+          {!isRejected && (
+            <Button
+              variant={"outline"}
+              size="sm"
+              disabled={isRejected}
+              onClick={async () => {
+                updateUsers({
+                  ...user,
+                  userStatus: "REJECTED",
+                });
+              }}
+            >
+              {"Revogar Acesso"}
+            </Button>
+          )}
+        </div>
       );
     },
   },
